@@ -3,6 +3,15 @@ name = "x86-64-vm"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+byteorder = "1.5.0"
+# Errors
+color-eyre = "0.6.2"
+custom_debug = "0.6.1"
+
+# To debug what we are getting
+hex-slice = "0.1.4"
+
+# For bit(s)/byte(s) manipulations
+positioned-io = "0.3.3"
+zerocopy = {version="0.7.32", features = ["alloc", "derive"]}

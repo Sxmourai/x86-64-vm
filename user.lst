@@ -1,0 +1,5 @@
+     1                                  BITS 64
+     2 00000000 66B8ADDE                mov ax, 0xdead
+     3 00000004 66BBEFBE                mov bx, 0xbeef
+     4 00000008 6601D8                  add ax, bx
+     5 0000000B E9FBFFFFFF              jmp $
