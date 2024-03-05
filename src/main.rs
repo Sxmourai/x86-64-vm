@@ -1,27 +1,19 @@
-use color_eyre::Result;
-use zerocopy::LittleEndian;
+#![cfg_attr(debug_assertions, allow(dead_code, unused))]
+#![feature(variant_count)]
+
+pub use color_eyre::Result;
 use hex_slice::AsHex;
 
+pub mod cpu;
+pub use cpu::CPU;
+pub mod vm;
+
+pub const MEM_SIZE: usize = 512 * 1024;
+
 fn main() {
-    let bytes = std::fs::read("user.o").expect("Failed opening user program !");
-    println!("{:x}", bytes.as_hex());
-    let reader = Reader::new(bytes);
-
-}
-
-/// Fasterthanlime's reader in https://fasterthanli.me/series/reading-files-the-hard-way/part-3#reading-an-inode-in-ext4
-struct Reader<IO> {
-    inner: IO,
-}
-
-impl<IO: positioned_io::ReadAt> Reader<IO> {
-    fn new(inner: IO) -> Self {
-        Self { inner }
-    }
-
-    fn u16(&self, offset: u64) -> Result<u16> {
-        let mut cursor = positioned_io::Cursor::new_pos(&self.inner, offset);
-        use byteorder::ReadBytesExt;
-        Ok(cursor.read_u16::<LittleEndian>()?)
-    }
+    // let memory = [0; MEM_SIZE];
+    let memory = std::fs::read("user.o").expect("Failed opening user program !");
+    println!("{:x}", memory.as_hex());
+    tracing::warn!("Assuming 64bit mode for now, because 16bit real mode isn't supported !");
+    vm::VM::new(memory).run()
 }

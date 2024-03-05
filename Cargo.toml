@@ -5,13 +5,19 @@ edition = "2021"
 
 [dependencies]
 byteorder = "1.5.0"
+clap = "4.5.1"
 # Errors
 color-eyre = "0.6.2"
 custom_debug = "0.6.1"
 
 # To debug what we are getting
 hex-slice = "0.1.4"
+tracing = "0.1.40"
 
 # For bit(s)/byte(s) manipulations
 positioned-io = "0.3.3"
 zerocopy = {version="0.7.32", features = ["alloc", "derive"]}
+bitfield = "0.14.0"
+bit_field = "0.10.2"
+num_enum = "0.7.2"
+
